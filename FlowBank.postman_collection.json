@@ -1,0 +1,731 @@
+{
+	"info": {
+		"_postman_id": "500c5f85-3d44-44e6-a6d9-76848f27bd5b",
+		"name": "FlowBank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "OAuth2.0 Server",
+			"item": [
+				{
+					"name": "John - Read/Write",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic Zmxvd2JhbmtDbGllbnQ6dk1iVzooUj5YeTFUIyQpZShDaTMmYmVHcjV0Ii9N",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "johnd",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "p@ssw0rd",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8084/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Jane - Read",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic Zmxvd2JhbmtDbGllbnQ6dk1iVzooUj5YeTFUIyQpZShDaTMmYmVHcjV0Ii9N",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "janed",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "p@ssw0rd",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8084/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var res = pm.response.json();",
+							"pm.globals.set(\"access_token\", res.access_token);"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "User management",
+			"item": [
+				{
+					"name": "Queries",
+					"item": [
+						{
+							"name": "UserQuery - Find All",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{access_token}}.eyJleHAiOjE2MjUyNTEwOTYsInVzZXJfbmFtZSI6ImphbWVzIiwiYXV0aG9yaXRpZXMiOlsiV1JJVEVfUFJJVklMRUdFIl0sImp0aSI6IjBHalEwdXVjNm1sd0xiX21kWG5sZWVLN3ZpUSIsImNsaWVudF9pZCI6ImZsb3diYW5rQ2xpZW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.18jYGjWYSaZ0QK7Kt4nNq-HbZS1tYcO_btzwLoxeJ-8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8082/api/v1/userLookup/",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"v1",
+										"userLookup",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UserQuery - Find By ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{access_token}}.eyJleHAiOjE2MjUyNTEwOTYsInVzZXJfbmFtZSI6ImphbWVzIiwiYXV0aG9yaXRpZXMiOlsiV1JJVEVfUFJJVklMRUdFIl0sImp0aSI6IjBHalEwdXVjNm1sd0xiX21kWG5sZWVLN3ZpUSIsImNsaWVudF9pZCI6ImZsb3diYW5rQ2xpZW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.18jYGjWYSaZ0QK7Kt4nNq-HbZS1tYcO_btzwLoxeJ-8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8082/api/v1/userLookup/byId/00e09d5b-da61-4914-96a8-8811260b645e",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"v1",
+										"userLookup",
+										"byId",
+										"00e09d5b-da61-4914-96a8-8811260b645e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UserQuery - Find By Filter",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8082/api/v1/userLookup/byFilter/John",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"v1",
+										"userLookup",
+										"byFilter",
+										"John"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Commands",
+					"item": [
+						{
+							"name": "Register User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjAzMDQ5MDIsInVzZXJfbmFtZSI6ImphbmVkIiwiYXV0aG9yaXRpZXMiOlsiUkVBRF9QUklWSUxFR0UiXSwianRpIjoiRUFvVV9scW5kRzFYc3ZmVUhLdDBaemdjNFBzIiwiY2xpZW50X2lkIjoiZmxvd2JhbmtDbGllbnQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.ovJWAanYI-TZwggg1qKZC_xLOScbZYOWK3ZC2o71P0I",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user\": {\r\n        \"firstName\":\"Jane\",\r\n        \"lastName\":\"Doe\",\r\n        \"emailAddress\": \"janed@flowbank.com\",\r\n        \"account\": {\r\n            \"username\": \"janed\",\r\n            \"password\": \"p@ssw0rd\",\r\n            \"role\": [\r\n                \"READ_PRIVILEGE\"\r\n            ]\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/api/v1/registerUser",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"v1",
+										"registerUser"
+									]
+								},
+								"description": "Register user"
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user\": {\r\n        \"firstName\":\"Mike300\",\r\n        \"lastName\":\"Doe3000\",\r\n        \"emailAddress\": \"mike300@flowbank.com\",\r\n        \"account\": {\r\n            \"username\": \"miked3000\",\r\n            \"password\": \"P@ssw0rd38\",\r\n            \"role\": [\r\n                \"READ_PRIVILEGE\", \"WRITE_PRIVILEGE\"\r\n            ]\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/api/v1/updateUser/8ec2eea9-f89e-43b8-a157-d11055e28865",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"v1",
+										"updateUser",
+										"8ec2eea9-f89e-43b8-a157-d11055e28865"
+									]
+								},
+								"description": "Register user"
+							},
+							"response": []
+						},
+						{
+							"name": "Remove User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/api/v1/removeUser/f6419489-a80e-48a2-a3f9-e739d272cdd6",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"v1",
+										"removeUser",
+										"f6419489-a80e-48a2-a3f9-e739d272cdd6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Bank Account",
+			"item": [
+				{
+					"name": "Commands",
+					"item": [
+						{
+							"name": "Open",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"accountHolderId\": \"00e09d5b-da61-4914-96a8-8811260b645e\",\r\n    \"accountType\": \"CURRENT\",\r\n    \"openingBalance\": 200.00\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:9091/api/v1/openBankAccount",
+									"host": [
+										"localhost"
+									],
+									"port": "9091",
+									"path": [
+										"api",
+										"v1",
+										"openBankAccount"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deposit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 100\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:9091/api/v1/depositFunds/38a8ed81-d556-471a-b1aa-2155bf19df16",
+									"host": [
+										"localhost"
+									],
+									"port": "9091",
+									"path": [
+										"api",
+										"v1",
+										"depositFunds",
+										"38a8ed81-d556-471a-b1aa-2155bf19df16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Withdraw",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:9091/api/v1/withdrawFunds/38a8ed81-d556-471a-b1aa-2155bf19df16",
+									"host": [
+										"localhost"
+									],
+									"port": "9091",
+									"path": [
+										"api",
+										"v1",
+										"withdrawFunds",
+										"38a8ed81-d556-471a-b1aa-2155bf19df16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Close",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:9091/api/v1/closeBankAccount/38a8ed81-d556-471a-b1aa-2155bf19df16",
+									"host": [
+										"localhost"
+									],
+									"port": "9091",
+									"path": [
+										"api",
+										"v1",
+										"closeBankAccount",
+										"38a8ed81-d556-471a-b1aa-2155bf19df16"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Queries",
+					"item": [
+						{
+							"name": "Get All",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9092/api/v1/bankAccountLookup/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9092",
+									"path": [
+										"api",
+										"v1",
+										"bankAccountLookup",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get ById",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9092/api/v1/bankAccountLookup/byId/85143c85-36e3-4b96-bb85-98d03569dbad",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9092",
+									"path": [
+										"api",
+										"v1",
+										"bankAccountLookup",
+										"byId",
+										"85143c85-36e3-4b96-bb85-98d03569dbad"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get ByHolderId",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9092/api/v1/bankAccountLookup/byHolderId/00e09d5b-da61-4914-96a8-8811260b645e",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9092",
+									"path": [
+										"api",
+										"v1",
+										"bankAccountLookup",
+										"byHolderId",
+										"00e09d5b-da61-4914-96a8-8811260b645e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Balance LESS/GREATER",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9092/api/v1/bankAccountLookup/withBalance/LESS_THAN/300",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9092",
+									"path": [
+										"api",
+										"v1",
+										"bankAccountLookup",
+										"withBalance",
+										"LESS_THAN",
+										"300"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
